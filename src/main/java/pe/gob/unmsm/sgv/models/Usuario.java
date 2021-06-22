@@ -9,9 +9,10 @@ public class Usuario {
 	private String nombre;
 	private String apellidos;
 	private String dni;
+        private String telefono;
 	private String direccion;
 	private String email;
-	private boolean estado;
+	private char estado;
 	private List<Roles> roles;
 	
 	
@@ -23,10 +24,10 @@ public class Usuario {
 		this.roles = roles;
 	}
 	
-	public boolean isEstado() {
+	public char isEstado() {
 		return estado;
 	}
-	public void setEstado(boolean estado) {
+	public void setEstado(char estado) {
 		this.estado = estado;
 	}
 	public String getNombre() {
@@ -65,7 +66,16 @@ public class Usuario {
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
-	public String getDireccion() {
+
+        public String getTelefono() {
+        return telefono;
+        }
+
+        public void setTelefono(String telefono) {
+        this.telefono = telefono;
+        }
+              
+        public String getDireccion() {
 		return direccion;
 	}
 	public void setDireccion(String direccion) {

@@ -20,6 +20,7 @@ import pe.gob.unmsm.sgv.models.Usuario;
 import pe.gob.unmsm.sgv.repository.impl.UsuarioRepositoryImpl;
 import pe.gob.unmsm.sgv.service.UsuarioService;
 @Service
+
 public class UsuarioServiceImpl implements UsuarioService,UserDetailsService {
 	
 	@Autowired
@@ -46,5 +47,30 @@ public class UsuarioServiceImpl implements UsuarioService,UserDetailsService {
 		
 		return ur.datosUsuario(username);
 	}
+
+        @Override
+        public Usuario obtenerUsuarioPorId(int idusuario) {
+                return ur.obtenerUsuarioPorId(idusuario);
+        }
+
+        @Override
+        public void añadirUsuario(Usuario usuario) {
+                ur.añadirUsuario(usuario);
+        }   
+
+        @Override
+        public List<Usuario> obtenerUsuarios() {
+                return ur.obtenerUsuarios();
+        }
+
+        @Override
+        public void actualizarUsuario(Usuario usuario) {
+                ur.actualizarUsuario(usuario);
+        }
+
+        @Override
+        public void eliminarUsuario(int idusuario) {
+                ur.eliminarUsuario(idusuario);
+        }
 
 }
