@@ -14,7 +14,7 @@ public class PedidoRowMapper implements RowMapper<Pedido> {
 		Pedido us = new Pedido();
 		us.setPedido_id(rs.getInt("pedido_id"));
                 us.setUsername(rs.getString("username"));
-		us.setEstado(rs.getString("estado").charAt(0));
+                us.setEstado(rs.getString("estado").charAt(0));
                 us.setCreated_at(rs.getString("created_at"));
                 us.setUpdated_at(rs.getString("updated_at"));
 		return us;

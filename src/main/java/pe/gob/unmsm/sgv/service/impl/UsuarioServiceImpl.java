@@ -49,8 +49,8 @@ public class UsuarioServiceImpl implements UsuarioService,UserDetailsService {
 	}
 
         @Override
-        public Usuario obtenerUsuarioPorId(int idusuario) {
-                return ur.obtenerUsuarioPorId(idusuario);
+        public Usuario obtenerUsuarioPorId(String username) {
+                return ur.obtenerUsuarioPorId(username);
         }
 
         @Override
@@ -69,8 +69,8 @@ public class UsuarioServiceImpl implements UsuarioService,UserDetailsService {
         }
 
         @Override
-        public void eliminarUsuario(int idusuario) {
-                ur.eliminarUsuario(idusuario);
+        public void eliminarUsuario(String username) {
+                ur.eliminarUsuario(username);
         }
 
 }

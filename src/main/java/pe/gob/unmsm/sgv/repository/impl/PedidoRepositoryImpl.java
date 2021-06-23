@@ -46,7 +46,7 @@ public class PedidoRepositoryImpl extends JdbcDaoSupport implements PedidoReposi
             public void añadirPedido(Pedido pedido) {
             JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
             LocalDate localdate = LocalDate.now();
-            String sql="insert into pedido (username,estado,created_at, updated_at) values ('"+ pedido.getUsername()+"','"+pedido.isEstado()+"','"+localdate+"','"+localdate+"';";          
+            String sql="insert into pedido (username,estado,created_at, updated_at) values ('"+ pedido.getUsername()+"','"+pedido.getEstado()+"',current_timestamp,current_timestamp)";         
             jdbctemplate.update(sql);
 	}
         
@@ -65,7 +65,7 @@ public class PedidoRepositoryImpl extends JdbcDaoSupport implements PedidoReposi
         public void actualizarPedido(Pedido pedido) {
             JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
             LocalDate localdate = LocalDate.now();
-            String sql="update pedido set  idusuario='"+ pedido.getUsername()+"', estado='"+pedido.isEstado()+"', updated_at='"+localdate+"' where pedido_id="+pedido.getPedido_id()+";";          
+            String sql="update pedido set  pedido_id='"+ pedido.getPedido_id()+"', estado='"+pedido.getEstado()+"', updated_at=current_timestamp where pedido_id="+pedido.getPedido_id()+";";          
             jdbctemplate.update(sql);
         }
 

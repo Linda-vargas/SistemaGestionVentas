@@ -3,13 +3,13 @@ package pe.gob.unmsm.sgv.models;
 import java.util.List;
 
 public class Usuario {
-	private int idusuario;
+	
 	private String username;
 	private String password;
 	private String nombre;
-	private String apellidos;
+	private String apellido;
 	private String dni;
-        private String telefono;
+    private String telefono;
 	private String direccion;
 	private String email;
 	private char estado;
@@ -36,18 +36,13 @@ public class Usuario {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getApellidos() {
-		return apellidos;
+	public String getApellido() {
+		return apellido;
 	}
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
-	public int getIdusuario() {
-		return idusuario;
-	}
-	public void setIdusuario(int idusuario) {
-		this.idusuario = idusuario;
-	}
+	
 	public String getUsername() {
 		return username;
 	}

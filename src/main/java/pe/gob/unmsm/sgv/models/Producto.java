@@ -4,7 +4,7 @@ package pe.gob.unmsm.sgv.models;
 import java.util.List;
 
 public class Producto {
-        private int producto_id;
+    private int producto_id;
 	private String nombre;
 	private String descripcion;
 	private int stock;
@@ -17,7 +17,7 @@ public class Producto {
         return producto_id;
     }
 
-    public void setProducto_id(int idproducto) {
+    public void setProducto_id(int producto_id) {
         this.producto_id = producto_id;
     }
 

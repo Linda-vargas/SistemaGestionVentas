@@ -36,7 +36,7 @@ public class ProductoRepositoryImpl extends JdbcDaoSupport implements ProductoRe
 	@Override
 	public Producto obtenerProductoPorId(int producto_id) {
 		JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
-		String sql="select * from producto where producto_id='"+producto_id+"'";
+		String sql="select * from producto where producto_id="+producto_id+"";
 		Producto u = new Producto();
 		u=jdbctemplate.queryForObject(sql, new ProductoRowMapper());
 		return u;
@@ -46,7 +46,7 @@ public class ProductoRepositoryImpl extends JdbcDaoSupport implements ProductoRe
             public void añadirProducto(Producto producto) {
             JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
             LocalDate localdate = LocalDate.now();
-            String sql="insert into producto (nombre, descripcion, stock, precio, estado,created_at, updated_at) values ('"+ producto.getNombre()+"','"+producto.getDescripcion()+"',"+producto.getPrecio()+","+producto.getStock()+",'"+producto.isEstado()+"','"+localdate+"','"+localdate+"';";          
+            String sql="insert into producto (nombre, descripcion, stock, precio, estado,created_at, updated_at) values ('"+ producto.getNombre()+"','"+producto.getDescripcion()+"',"+producto.getStock()+","+producto.getPrecio()+",'"+producto.isEstado()+"',current_timestamp,current_timestamp)";           
             jdbctemplate.update(sql);
 	}
         
@@ -65,7 +65,7 @@ public class ProductoRepositoryImpl extends JdbcDaoSupport implements ProductoRe
         public void actualizarProducto(Producto producto) {
             JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
             LocalDate localdate = LocalDate.now();
-            String sql="update producto set  nombre="+"'"+ producto.getNombre()+"',descripcion="+"'"+producto.getDescripcion()+"', stock="+producto.getStock()+", precio="+producto.getPrecio()+", estado='"+producto.isEstado()+"', updated_at='"+localdate+"' where producto_id="+producto.getProducto_id()+";";          
+            String sql="update producto set  nombre='"+ producto.getNombre()+"',descripcion='"+producto.getDescripcion()+"', stock="+producto.getStock()+", precio="+producto.getPrecio()+", estado='"+producto.isEstado()+"', updated_at=current_timestamp where producto_id="+producto.getProducto_id()+"";           
             jdbctemplate.update(sql);
         }
 

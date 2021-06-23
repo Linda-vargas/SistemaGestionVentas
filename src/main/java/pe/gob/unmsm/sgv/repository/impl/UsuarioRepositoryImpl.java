@@ -60,9 +60,9 @@ public class UsuarioRepositoryImpl extends JdbcDaoSupport implements UsuarioRepo
 	}
 
         @Override
-        public Usuario obtenerUsuarioPorId(int idusuario) {
+        public Usuario obtenerUsuarioPorId(String username) {
                 JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
-		String sql="select * from usuario where idusuario='"+idusuario+"'";
+		String sql="select * from usuario where username='"+username+"'";
 		Usuario u = new Usuario();
 		u=jdbctemplate.queryForObject(sql, new UsuarioRowMapper());
 		return u;
@@ -74,7 +74,7 @@ public class UsuarioRepositoryImpl extends JdbcDaoSupport implements UsuarioRepo
         	
             JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
             LocalDate localdate = LocalDate.now();
-            String sql="insert into usuario (username, password, nombre, apellidos, dni, telefono, direccion,email) values ('"+ usuario.getUsername()+"','"+usuario.getPassword()+"','"+usuario.getNombre()+"','"+usuario.getApellidos()+"','"+usuario.getDni()+"','"+usuario.getTelefono()+"','"+usuario.getDireccion()+"','"+usuario.getEmail()+"';";          
+            String sql="insert into usuario (username, password, nombre, apellido, dni, telefono, direccion, email, estado, created_at, updated_at) values ('"+ usuario.getUsername()+"','"+usuario.getPassword()+"','"+usuario.getNombre()+"','"+usuario.getApellido()+"','"+usuario.getDni()+"','"+usuario.getTelefono()+"','"+usuario.getDireccion()+"','"+usuario.getEmail()+"','"+usuario.isEstado()+"',current_timestamp,current_timestamp)";          
             jdbctemplate.update(sql);
         }
 
@@ -91,14 +91,14 @@ public class UsuarioRepositoryImpl extends JdbcDaoSupport implements UsuarioRepo
         public void actualizarUsuario(Usuario usuario) {
             JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
             LocalDate localdate = LocalDate.now();
-            String sql="update usuario set  username="+"'"+ usuario.getUsername()+"',password="+"'"+usuario.getPassword()+"', dni='"+usuario.getDni()+"', nombre='"+usuario.getNombre()+"',apellidos'="+usuario.getApellidos()+"', telefono='"+usuario.getTelefono()+"', direccion='"+usuario.getDireccion()+"', email='"+usuario.getEmail()+";";          
+            String sql="update usuario set  username="+"'"+ usuario.getUsername()+"',password="+"'"+usuario.getPassword()+"', dni='"+usuario.getDni()+"', nombre='"+usuario.getNombre()+"',apellido='"+usuario.getApellido()+"', telefono='"+usuario.getTelefono()+"', direccion='"+usuario.getDireccion()+"', email='"+usuario.getEmail()+"', estado='"+usuario.isEstado()+"', updated_at=current_timestamp where username='"+usuario.getUsername()+"'";          
             jdbctemplate.update(sql);
         }
 
         @Override
-        public void eliminarUsuario(int idusuario) {
+        public void eliminarUsuario(String username) {
             JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
-            String sql="delete from usuario where idusuario="+idusuario;         
+            String sql="delete from usuario where username='"+username+"'";         
             jdbctemplate.update(sql);
         }
 	
