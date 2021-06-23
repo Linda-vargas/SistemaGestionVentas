@@ -8,14 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 import pe.gob.unmsm.sgv.models.Producto;
 import pe.gob.unmsm.sgv.repository.impl.ProductoRepositoryImpl;
 import pe.gob.unmsm.sgv.service.ProductoService;
 @Service
-
 public class ProductoServiceImpl implements ProductoService {
 	
 	@Autowired

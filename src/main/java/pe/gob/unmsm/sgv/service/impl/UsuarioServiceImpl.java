@@ -13,18 +13,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 import pe.gob.unmsm.sgv.models.Usuario;
+import pe.gob.unmsm.sgv.repository.UsuarioRepository;
 import pe.gob.unmsm.sgv.repository.impl.UsuarioRepositoryImpl;
 import pe.gob.unmsm.sgv.service.UsuarioService;
-@Service
 
+@Service
 public class UsuarioServiceImpl implements UsuarioService,UserDetailsService {
 	
 	@Autowired
-	UsuarioRepositoryImpl ur;
+	private UsuarioRepositoryImpl ur;
 
 	private Logger logger =LoggerFactory.getLogger(UsuarioService.class);
 	

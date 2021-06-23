@@ -22,22 +22,22 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers(HttpMethod.GET,"/eventos/participantes").permitAll()
-//                .antMatchers(HttpMethod.GET,"/eventos/participantes/{idparticipante}").hasAnyRole("ADMINISTRADOR","MODERADOR")
-                .anyRequest().authenticated()
-                .and().cors().configurationSource(corsConfigurationSource());
+    	http.authorizeRequests()
+        .antMatchers("/token/oauth/**").permitAll()
+        .anyRequest().authenticated()
+		.and().cors().configurationSource(corsConfigurationSource());
     }
     
     @Bean
 	public CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOrigins(Arrays.asList("http://localhost:4200","*"));
-		config.setAllowedMethods(Arrays.asList("GET","POST"));
-		config.setAllowCredentials(true);
-		config.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
-		
+    	CorsConfiguration corsConfig = new CorsConfiguration();
+    	corsConfig.addAllowedOriginPattern("*");
+		//corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:4201","*"));
+		corsConfig.setAllowedMethods(Arrays.asList("POST","GET","PUT","DELETE","OPTIONS"));
+		corsConfig.setAllowCredentials(true);
+		corsConfig.setAllowedHeaders(Arrays.asList("Authorization","Content-Type"));
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", config);
+		source.registerCorsConfiguration("/**", corsConfig);
 		return source;
 	}
 	

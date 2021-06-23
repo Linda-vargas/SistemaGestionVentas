@@ -33,8 +33,9 @@ public class UsuarioRepositoryImpl extends JdbcDaoSupport implements UsuarioRepo
 	public void DataSource (DataSource setDataSource) {
 		setDataSource(setDataSource);
 	}
-	@Autowired
-        private BCryptPasswordEncoder passwordEncoder;
+	
+	//@Autowired
+    //private BCryptPasswordEncoder passwordEncoder;
     
 	
 
@@ -69,10 +70,11 @@ public class UsuarioRepositoryImpl extends JdbcDaoSupport implements UsuarioRepo
 
         @Override
         public void añadirUsuario(Usuario usuario) {
-            String passwordBcrypt =passwordEncoder.encode(usuario.getPassword());
+            //String passwordBcrypt =passwordEncoder.encode(usuario.getPassword());
+        	
             JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
             LocalDate localdate = LocalDate.now();
-            String sql="insert into usuario (username, password, nombre, apellidos, dni, telefono, direccion,email) values ('"+ usuario.getUsername()+"','"+passwordBcrypt+"','"+usuario.getNombre()+"','"+usuario.getApellidos()+"','"+usuario.getDni()+"','"+usuario.getTelefono()+"','"+usuario.getDireccion()+"','"+usuario.getEmail()+"';";          
+            String sql="insert into usuario (username, password, nombre, apellidos, dni, telefono, direccion,email) values ('"+ usuario.getUsername()+"','"+usuario.getPassword()+"','"+usuario.getNombre()+"','"+usuario.getApellidos()+"','"+usuario.getDni()+"','"+usuario.getTelefono()+"','"+usuario.getDireccion()+"','"+usuario.getEmail()+"';";          
             jdbctemplate.update(sql);
         }
 
