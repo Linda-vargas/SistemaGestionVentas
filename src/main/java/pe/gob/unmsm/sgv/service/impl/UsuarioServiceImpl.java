@@ -49,7 +49,7 @@ public class UsuarioServiceImpl implements UsuarioService,UserDetailsService {
 	}
 
         @Override
-        public Usuario obtenerUsuarioPorId(String username) {
+        public List<Usuario> obtenerUsuarioPorId(String username) {
                 return ur.obtenerUsuarioPorId(username);
         }
 

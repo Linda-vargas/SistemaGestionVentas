@@ -60,11 +60,11 @@ public class UsuarioRepositoryImpl extends JdbcDaoSupport implements UsuarioRepo
 	}
 
         @Override
-        public Usuario obtenerUsuarioPorId(String username) {
+        public List<Usuario> obtenerUsuarioPorId(String username) {
                 JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
-		String sql="select * from usuario where username='"+username+"'";
-		Usuario u = new Usuario();
-		u=jdbctemplate.queryForObject(sql, new UsuarioRowMapper());
+		String sql="select * from usuario where username like '"+username+"%'";
+		List<Usuario> u;
+		u=jdbctemplate.query(sql, new UsuarioRowMapper());
 		return u;
         }
 
@@ -74,14 +74,14 @@ public class UsuarioRepositoryImpl extends JdbcDaoSupport implements UsuarioRepo
         	
             JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
             LocalDate localdate = LocalDate.now();
-            String sql="insert into usuario (username, password, nombre, apellido, dni, telefono, direccion, email, estado, created_at, updated_at) values ('"+ usuario.getUsername()+"','"+usuario.getPassword()+"','"+usuario.getNombre()+"','"+usuario.getApellido()+"','"+usuario.getDni()+"','"+usuario.getTelefono()+"','"+usuario.getDireccion()+"','"+usuario.getEmail()+"','"+usuario.isEstado()+"',current_timestamp,current_timestamp)";          
+            String sql="insert into usuario (username, password, nombre, apellido, dni, telefono, direccion, email, estado, created_at, updated_at) values ('"+ usuario.getUsername().toUpperCase()+"','"+usuario.getPassword()+"','"+usuario.getNombre().toUpperCase()+"','"+usuario.getApellido().toUpperCase()+"','"+usuario.getDni()+"','"+usuario.getTelefono()+"','"+usuario.getDireccion()+"','"+usuario.getEmail()+"','1',current_timestamp,current_timestamp)";          
             jdbctemplate.update(sql);
         }
 
         @Override
         public List<Usuario> obtenerUsuarios() {
             JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
-            String sql="select * from usuario ";          
+            String sql="select * from usuario where estado='1'";          
             List<Usuario> usuarios = new ArrayList<Usuario> ();
             usuarios=jdbctemplate.query(sql, new UsuarioRowMapper());
             return usuarios;
@@ -98,7 +98,7 @@ public class UsuarioRepositoryImpl extends JdbcDaoSupport implements UsuarioRepo
         @Override
         public void eliminarUsuario(String username) {
             JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
-            String sql="delete from usuario where username='"+username+"'";         
+            String sql="update usuario set estado='0' where username='"+username+"'";         
             jdbctemplate.update(sql);
         }
 	

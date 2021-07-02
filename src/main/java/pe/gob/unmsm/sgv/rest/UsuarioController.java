@@ -3,6 +3,7 @@ package pe.gob.unmsm.sgv.rest;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,8 +21,14 @@ public class UsuarioController {
 	    @Autowired
 	    private  UsuarioService us;
 	    
+	    @Autowired
+	    private BCryptPasswordEncoder passwordEncoder;
+	    
 	    @PostMapping("/insertarusuario")
 	    public void save(@RequestBody Usuario u){
+	    	u.setUsername(""+u.getNombre().toUpperCase()+"."+u.getApellido().toUpperCase());
+	    	String passwordBcrypt =passwordEncoder.encode(u.getPassword());
+	    	u.setPassword(passwordBcrypt);
 	        us.añadirUsuario(u);
 	    }
         @GetMapping("/listar_usuarios")
@@ -30,7 +37,7 @@ public class UsuarioController {
 	    }
         
         @GetMapping("/buscarUsuarioPorId")
-	    public Usuario save(@RequestParam String username){
+	    public List<Usuario> buscar(@RequestParam String username){
         	return us.obtenerUsuarioPorId(username);
 	    }
         
