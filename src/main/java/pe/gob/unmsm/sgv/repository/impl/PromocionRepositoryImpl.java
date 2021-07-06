@@ -43,9 +43,9 @@ public class PromocionRepositoryImpl extends JdbcDaoSupport implements Promocion
         String sql="insert into promocion (nombre, descripcion, cantidad, fecha_inicio, fecha_fin, costo, estado, created_at, updated_at) values ('"+ promocion.getNombre().toUpperCase()+"','"+promocion.getDescripcion()+"',"+promocion.getCantidad()+",'"+promocion.getFecha_inicio()+"','"+promocion.getFecha_fin()+"',"+promocion.getCosto()+",'1',current_timestamp,current_timestamp)";          
         jdbctemplate.update(sql);
      
-        sql = "select max(id) from promocion";
+        sql = "select max(idPromocion) from promocion";
 		int idProducto= jdbctemplate.queryForObject(sql,(rs, rowNum) ->
-                rs.getInt("idPromocion")             
+                rs.getInt("max")             
         );
 		
 		sql ="insert into producto_promocion (producto_id, idPromocion ) values ("+promocion.getIdProducto()+","+idProducto+")";
@@ -65,7 +65,7 @@ public class PromocionRepositoryImpl extends JdbcDaoSupport implements Promocion
 	@Override
 	public void actualizarPromocion(Promocion promocion) {
 		JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
-        String sql="update promocion set nombre="+"'"+ promocion.getNombre().toUpperCase()+"',descripcion="+"'"+promocion.getDescripcion()+"', cantidad="+promocion.getCantidad()+", fecha_inicio='"+promocion.getFecha_inicio()+"',fecha_fin='"+promocion.getFecha_fin()+"', costo="+promocion.getCosto()+", estado='"+promocion.getEstado()+"', updated_at=current_timestamp where idPromocion="+promocion.getIdPromocion()+"";          
+        String sql="update promocion set nombre="+"'"+ promocion.getNombre().toUpperCase()+"',descripcion="+"'"+promocion.getDescripcion()+"', cantidad="+promocion.getCantidad()+", fecha_inicio='"+promocion.getFecha_inicio()+"',fecha_fin='"+promocion.getFecha_fin()+"', costo="+promocion.getCosto()+", estado='1', updated_at=current_timestamp where idPromocion="+promocion.getIdPromocion()+"";          
         jdbctemplate.update(sql);
         
 	}

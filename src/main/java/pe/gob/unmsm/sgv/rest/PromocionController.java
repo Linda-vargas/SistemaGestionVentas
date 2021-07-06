@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,18 +34,19 @@ public class PromocionController {
 	    }
         
         @GetMapping("/{id}")
-	    public  ResponseEntity<Promocion> getById(@RequestParam int idPromocion){
-        	return ResponseEntity.ok(ps.obtenerPromocionPorId(idPromocion));
+	    public  ResponseEntity<Promocion> getById(@PathVariable int id){
+        	return ResponseEntity.ok(ps.obtenerPromocionPorId(id));
 	    }
         
         @PutMapping(value = "/{id}")
-	    public void updatePromocion(@RequestParam int idPromocion,@RequestBody Promocion p){
+	    public void updatePromocion(@PathVariable int id,@RequestBody Promocion p){
+        	p.setIdPromocion(id);
         	ps.actualizarPromocion(p);
 	    }
         
         @DeleteMapping(value = "/{id}")
-	    public void deletePromocion(@RequestParam int idPromocion){
-        	ps.eliminarPromocion(idPromocion);
+	    public void deletePromocion(@PathVariable int id){
+        	ps.eliminarPromocion(id);
 	    }
         
                
