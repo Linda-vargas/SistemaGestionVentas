@@ -20,10 +20,7 @@ public class PedidoController {
 	    @Autowired
 	    private  PedidoService us;
 	    
-	    @PostMapping("/insertarPedido")
-	    public void save(@RequestBody Pedido r){
-	        us.añadirPedido(r);
-	    }
+	    
         @GetMapping("/listar_pedidos")
 	    public List<Pedido> listar_pedidos(){
 	        return us.obtenerPedidos();

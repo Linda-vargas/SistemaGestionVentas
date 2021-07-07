@@ -1,5 +1,4 @@
 package pe.gob.unmsm.sgv.repository.impl;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,10 +33,7 @@ public class UsuarioRepositoryImpl extends JdbcDaoSupport implements UsuarioRepo
 		setDataSource(setDataSource);
 	}
 	
-	//@Autowired
-    //private BCryptPasswordEncoder passwordEncoder;
-    
-	
+	  
 
 	@Override
 	public Usuario datosUsuario(String username) {
@@ -69,12 +65,11 @@ public class UsuarioRepositoryImpl extends JdbcDaoSupport implements UsuarioRepo
         }
 
         @Override
-        public void añadirUsuario(Usuario usuario) {
-            //String passwordBcrypt =passwordEncoder.encode(usuario.getPassword());
-        	
+        public void añadirUsuario(Usuario usuario,int tarjeta_id) {
+                	
             JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
             LocalDate localdate = LocalDate.now();
-            String sql="insert into usuario (username, password, nombre, apellido, dni, telefono, direccion, email, estado, created_at, updated_at) values ('"+ usuario.getUsername().toUpperCase()+"','"+usuario.getPassword()+"','"+usuario.getNombre().toUpperCase()+"','"+usuario.getApellido().toUpperCase()+"','"+usuario.getDni()+"','"+usuario.getTelefono()+"','"+usuario.getDireccion()+"','"+usuario.getEmail()+"','1',current_timestamp,current_timestamp)";          
+            String sql="insert into usuario (tarjeta_id,username, password, nombre, apellido, dni, telefono, direccion, email, estado, created_at, updated_at) values ("+tarjeta_id+",'"+ usuario.getUsername().toUpperCase()+"','"+usuario.getPassword()+"','"+usuario.getNombre().toUpperCase()+"','"+usuario.getApellido().toUpperCase()+"','"+usuario.getDni()+"','"+usuario.getTelefono()+"','"+usuario.getDireccion()+"','"+usuario.getEmail()+"','1',current_timestamp,current_timestamp)";          
             jdbctemplate.update(sql);
         }
 
@@ -102,4 +97,5 @@ public class UsuarioRepositoryImpl extends JdbcDaoSupport implements UsuarioRepo
             jdbctemplate.update(sql);
         }
 	
+                  
 }

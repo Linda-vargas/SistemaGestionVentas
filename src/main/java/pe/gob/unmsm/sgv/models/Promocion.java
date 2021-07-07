@@ -1,26 +1,32 @@
-
 package pe.gob.unmsm.sgv.models;
 
-import java.util.List;
-
 public class Promocion {
-        private int promocion_id;
+        private int idPromocion;
         private String nombre;
         private String descripcion;
         private int cantidad;
         private String fecha_inicio;
         private String fecha_fin;
         private float costo;
-	private char estado;
-	private String created_at;
+		private char estado;
+		private String created_at;
+		private int idProducto;
         private String updated_at;
 
-    public int getPromocion_id() {
-        return promocion_id;
+    public int getIdProducto() {
+			return idProducto;
+		}
+
+	public void setIdProducto(int idProducto) {
+		this.idProducto = idProducto;
+	}
+
+	public int getIdPromocion() {
+        return idPromocion;
     }
 
-    public void setPromocion_id(int promocion_id) {
-        this.promocion_id = promocion_id;
+    public void setIdPromocion(int idPromocion) {
+        this.idPromocion = idPromocion;
     }
 
     public String getNombre() {

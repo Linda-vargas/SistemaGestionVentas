@@ -9,10 +9,11 @@ public class Usuario {
 	private String nombre;
 	private String apellido;
 	private String dni;
-    private String telefono;
+        private String telefono;
 	private String direccion;
 	private String email;
 	private char estado;
+        private int tarjeta_id;
 	private List<Roles> roles;
 	
 	
@@ -23,7 +24,15 @@ public class Usuario {
 	public void setRoles(List<Roles> roles) {
 		this.roles = roles;
 	}
-	
+
+        public int getTarjeta_id() {
+                return tarjeta_id;
+        }
+
+        public void setTarjeta_id(int tarjeta_id) {
+             this.tarjeta_id = tarjeta_id;
+        }
+ 
 	public char isEstado() {
 		return estado;
 	}

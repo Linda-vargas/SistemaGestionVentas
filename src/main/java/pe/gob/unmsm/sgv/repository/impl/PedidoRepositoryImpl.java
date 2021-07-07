@@ -12,10 +12,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
-
-
 import pe.gob.unmsm.sgv.mapper.PedidoRowMapper;
 import pe.gob.unmsm.sgv.models.Pedido;
+import pe.gob.unmsm.sgv.models.PedidoProducto;
 import pe.gob.unmsm.sgv.repository.PedidoRepository;
 
 @Repository
@@ -43,11 +42,13 @@ public class PedidoRepositoryImpl extends JdbcDaoSupport implements PedidoReposi
 	}
 
         @Override
-            public void añadirPedido(Pedido pedido) {
+            public int añadirPedido(String username) {
             JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
             LocalDate localdate = LocalDate.now();
-            String sql="insert into pedido (username,estado,created_at, updated_at) values ('"+ pedido.getUsername()+"','"+pedido.getEstado()+"',current_timestamp,current_timestamp)";         
+            String sql="insert into pedido (username,estado,created_at, updated_at) values ('"+ username+"','1',current_timestamp,current_timestamp)";         
+            String sql2="select max(pedido_id) from pedido";
             jdbctemplate.update(sql);
+            return jdbctemplate.queryForObject(sql2, Integer.class);
 	}
         
         
@@ -73,6 +74,14 @@ public class PedidoRepositoryImpl extends JdbcDaoSupport implements PedidoReposi
         public void eliminarPedido(int pedido_id) {
             JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
             String sql="delete from pedido where pedido_id="+pedido_id;         
+            jdbctemplate.update(sql);
+        }
+
+        @Override
+        public void añadirPedidoProducto(PedidoProducto pedidoproducto) {
+            JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
+            LocalDate localdate = LocalDate.now();
+            String sql="insert into producto_pedido (pedido_id,producto_id,cantidad) values ('"+ pedidoproducto.getPredido_id()+"','"+pedidoproducto.getProducto_id()+"',"+pedidoproducto.getCantidad()+")";         
             jdbctemplate.update(sql);
         }
 	

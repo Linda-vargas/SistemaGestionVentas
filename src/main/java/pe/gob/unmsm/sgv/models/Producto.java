@@ -10,6 +10,7 @@ public class Producto {
 	private int stock;
 	private float precio;
 	private char estado;
+        private int cantidad;
 	private String created_at;
         private String updated_at;
 
@@ -61,6 +62,14 @@ public class Producto {
         this.estado = estado;
     }
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+    
     public String getCreated_at() {
         return created_at;
     }

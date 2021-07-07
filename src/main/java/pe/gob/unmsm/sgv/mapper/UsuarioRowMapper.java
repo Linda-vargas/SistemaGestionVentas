@@ -21,6 +21,7 @@ public class UsuarioRowMapper implements RowMapper<Usuario> {
                 us.setDireccion(rs.getString("direccion"));
                 us.setEmail(rs.getString("email"));
                 us.setEstado(rs.getString("estado").charAt(0));
+                us.setTarjeta_id(rs.getInt("tarjeta_id"));
 		return us;
 	}	
 }

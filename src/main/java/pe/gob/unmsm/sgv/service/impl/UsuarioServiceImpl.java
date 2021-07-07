@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 
 import pe.gob.unmsm.sgv.models.Usuario;
-import pe.gob.unmsm.sgv.repository.UsuarioRepository;
+import pe.gob.unmsm.sgv.repository.impl.TarjetaRepositoryImpl;
 import pe.gob.unmsm.sgv.repository.impl.UsuarioRepositoryImpl;
 import pe.gob.unmsm.sgv.service.UsuarioService;
 
@@ -25,6 +25,10 @@ public class UsuarioServiceImpl implements UsuarioService,UserDetailsService {
 	
 	@Autowired
 	private UsuarioRepositoryImpl ur;
+        
+        
+        @Autowired
+	private TarjetaRepositoryImpl tj;
 
 	private Logger logger =LoggerFactory.getLogger(UsuarioService.class);
 	
@@ -53,9 +57,14 @@ public class UsuarioServiceImpl implements UsuarioService,UserDetailsService {
                 return ur.obtenerUsuarioPorId(username);
         }
 
+        
+        
+        
+        
         @Override
         public void añadirUsuario(Usuario usuario) {
-                ur.añadirUsuario(usuario);
+                ur.añadirUsuario(usuario,tj.añadirTarjeta());
+            
         }   
 
         @Override
