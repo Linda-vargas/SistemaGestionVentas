@@ -53,6 +53,7 @@ public class ProductoRepositoryImpl extends JdbcDaoSupport implements ProductoRe
         productos=jdbctemplate.query(sql, new ProductoRowMapper());
         return productos;
     }
+<<<<<<< HEAD
 
     @Override
     public void actualizarProducto(Producto producto) {
@@ -62,6 +63,17 @@ public class ProductoRepositoryImpl extends JdbcDaoSupport implements ProductoRe
     }
 
     @Override
+=======
+
+    @Override
+    public void actualizarProducto(Producto producto) {
+        JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
+        String sql="update producto set  nombre='"+ producto.getNombre()+"',descripcion='"+producto.getDescripcion()+"', stock="+producto.getStock()+", precio="+producto.getPrecio()+", estado='"+producto.isEstado()+"', updated_at=current_timestamp where producto_id="+producto.getProducto_id()+"";           
+        jdbctemplate.update(sql);
+    }
+
+    @Override
+>>>>>>> 6822c2cb6e7dc87e16d946a778476d6b7272c2d8
     public void eliminarProducto(int producto_id) {
         JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
         String sql="delete from producto where producto_id="+producto_id;         
