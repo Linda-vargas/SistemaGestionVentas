@@ -2,7 +2,6 @@ package pe.gob.unmsm.sgv.rest;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +25,7 @@ public class UsuarioController {
 	    
 	    @PostMapping("/insertarusuario")
 	    public void save(@RequestBody Usuario u){
-	    	u.setUsername(""+u.getNombre().toUpperCase()+"."+u.getApellido().toUpperCase());
+	    	u.setUsername(u.getEmail());
 	    	String passwordBcrypt =passwordEncoder.encode(u.getPassword());
 	    	u.setPassword(passwordBcrypt);
 	        us.añadirUsuario(u);

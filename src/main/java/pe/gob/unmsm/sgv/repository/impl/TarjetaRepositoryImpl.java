@@ -2,6 +2,8 @@
 package pe.gob.unmsm.sgv.repository.impl;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -39,11 +41,15 @@ public class TarjetaRepositoryImpl extends JdbcDaoSupport implements TarjetaRepo
         
         @Override
         public int añadirTarjeta() {
-            JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
-            LocalDate localdate = LocalDate.now();
-            int año=localdate.getYear()+2;
-            String sql="insert into tarjeta (fecha_vencimiento, saldo, estado, created_at, updated_at) values (to_char("+localdate.getDayOfMonth()+"-"+localdate.getMonth()+"-"+año+" 'dd-mm-yyyy'),current_timestamp,current_timestamp)";          
+            
+
+            LocalDate dt = LocalDate.now();
+            int año=dt.getYear()+2;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM");
+            
+            String sql="insert into tarjeta (fecha_vencimiento, saldo, estado, created_at, updated_at) values ('"+formatter.format(dt)+"-"+año+"',0,'1',current_timestamp,current_timestamp)";          
             String sql2= "select max(tarjeta_id) from tarjeta";
+            JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
             jdbctemplate.update(sql);
             return jdbctemplate.queryForObject(sql2, Integer.class);
         }

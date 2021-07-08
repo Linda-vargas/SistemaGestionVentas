@@ -2,8 +2,6 @@ package pe.gob.unmsm.sgv.service.impl;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -30,7 +28,6 @@ public class PedidoServiceImpl implements PedidoService {
         @Autowired
 	TarjetaRepositoryImpl tj;
 
-	private Logger logger =LoggerFactory.getLogger(PedidoService.class);
 	
 	@Override
 	public Pedido obtenerPedidoPorId(int pedido_id) {

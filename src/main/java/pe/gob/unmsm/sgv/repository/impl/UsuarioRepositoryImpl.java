@@ -68,7 +68,6 @@ public class UsuarioRepositoryImpl extends JdbcDaoSupport implements UsuarioRepo
         public void añadirUsuario(Usuario usuario,int tarjeta_id) {
                 	
             JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
-            LocalDate localdate = LocalDate.now();
             String sql="insert into usuario (tarjeta_id,username, password, nombre, apellido, dni, telefono, direccion, email, estado, created_at, updated_at) values ("+tarjeta_id+",'"+ usuario.getUsername().toUpperCase()+"','"+usuario.getPassword()+"','"+usuario.getNombre().toUpperCase()+"','"+usuario.getApellido().toUpperCase()+"','"+usuario.getDni()+"','"+usuario.getTelefono()+"','"+usuario.getDireccion()+"','"+usuario.getEmail()+"','1',current_timestamp,current_timestamp)";          
             jdbctemplate.update(sql);
         }
@@ -85,7 +84,7 @@ public class UsuarioRepositoryImpl extends JdbcDaoSupport implements UsuarioRepo
         @Override
         public void actualizarUsuario(Usuario usuario) {
             JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
-            LocalDate localdate = LocalDate.now();
+            
             String sql="update usuario set  username="+"'"+ usuario.getUsername()+"',password="+"'"+usuario.getPassword()+"', dni='"+usuario.getDni()+"', nombre='"+usuario.getNombre()+"',apellido='"+usuario.getApellido()+"', telefono='"+usuario.getTelefono()+"', direccion='"+usuario.getDireccion()+"', email='"+usuario.getEmail()+"', estado='"+usuario.isEstado()+"', updated_at=current_timestamp where username='"+usuario.getUsername()+"'";          
             jdbctemplate.update(sql);
         }

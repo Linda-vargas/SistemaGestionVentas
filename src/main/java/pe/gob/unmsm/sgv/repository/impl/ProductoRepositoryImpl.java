@@ -41,7 +41,7 @@ public class ProductoRepositoryImpl extends JdbcDaoSupport implements ProductoRe
     @Override
         public void añadirProducto(Producto producto) {
         JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
-        String sql="insert into producto (nombre, descripcion, stock, precio, estado,created_at, updated_at) values ('"+ producto.getNombre()+"','"+producto.getDescripcion()+"',"+producto.getStock()+","+producto.getPrecio()+",'"+producto.isEstado()+"',current_timestamp,current_timestamp)";           
+        String sql="insert into producto (nombre, descripcion, stock, precio, estado,created_at, updated_at) values ('"+ producto.getNombre().toUpperCase()+"','"+producto.getDescripcion().toUpperCase()+"',"+producto.getStock()+","+producto.getPrecio()+",'1',current_timestamp,current_timestamp)";           
         jdbctemplate.update(sql);
 	}
         
