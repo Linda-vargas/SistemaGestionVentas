@@ -45,6 +45,8 @@ public class UsuarioRepositoryImpl extends JdbcDaoSupport implements UsuarioRepo
 		return u;
 	}
 	
+	
+	
 	@Override
 	public List<Roles> roles(String username) {
 		JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);

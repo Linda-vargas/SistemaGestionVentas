@@ -11,7 +11,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import pe.gob.unmsm.sgv.mapper.TarjetaRowMapper;
+import pe.gob.unmsm.sgv.mapper.UsuarioRowMapper;
 import pe.gob.unmsm.sgv.models.Tarjeta;
+import pe.gob.unmsm.sgv.models.Usuario;
 import pe.gob.unmsm.sgv.repository.TarjetaRepository;
 
 
@@ -57,10 +59,32 @@ public class TarjetaRepositoryImpl extends JdbcDaoSupport implements TarjetaRepo
         @Override
         public void actualizarSaldo(Tarjeta tarjeta) {
             JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
-            String sql="update tarjeta set saldo="+ tarjeta.getSaldo()+", updated_at=current_timestamp where tarjeta_id="+tarjeta.getTarjeta_id()+"";          
+            String sql="update tarjeta set saldo="+tarjeta.getSaldo()+", updated_at=current_timestamp where tarjeta_id="+tarjeta.getTarjeta_id()+"";          
             jdbctemplate.update(sql);
         }
         
+        @Override
+    	public Tarjeta tarjetbyId(String username) {
+    		JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
+    		String sql="select t.* from usuario u\r\n"
+    				+ "inner join tarjeta t on  t.tarjeta_id=u.tarjeta_id\r\n"
+    				+ "where u.username='"+username+"'";
+    		Tarjeta u = new Tarjeta();
+    		u=jdbctemplate.queryForObject(sql, new TarjetaRowMapper());
+    		return u;
+    	}
+        
+        @Override
+    	public Tarjeta tarjetbyNum(int tarjeta_id) {
+    		JdbcTemplate jdbctemplate = context.getBean(CONEXION_DB, JdbcTemplate.class);
+    		String sql="select * from tarjeta t \r\n"
+    				+ "where t.tarjeta_id="+tarjeta_id+"";
+    		Tarjeta u = new Tarjeta();
+    		u=jdbctemplate.queryForObject(sql, new TarjetaRowMapper());
+    		return u;
+    	}
+        
+
         
         
         
