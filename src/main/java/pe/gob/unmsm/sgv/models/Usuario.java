@@ -3,15 +3,17 @@ package pe.gob.unmsm.sgv.models;
 import java.util.List;
 
 public class Usuario {
-	private int idusuario;
+	
 	private String username;
 	private String password;
 	private String nombre;
-	private String apellidos;
+	private String apellido;
 	private String dni;
+        private String telefono;
 	private String direccion;
 	private String email;
-	private boolean estado;
+	private char estado;
+        private int tarjetaid;
 	private List<Roles> roles;
 	
 	
@@ -22,11 +24,19 @@ public class Usuario {
 	public void setRoles(List<Roles> roles) {
 		this.roles = roles;
 	}
-	
-	public boolean isEstado() {
+
+        public int getTarjetaid() {
+                return tarjetaid;
+        }
+
+        public void setTarjetaid(int tarjetaid) {
+             this.tarjetaid = tarjetaid;
+        }
+ 
+	public char isEstado() {
 		return estado;
 	}
-	public void setEstado(boolean estado) {
+	public void setEstado(char estado) {
 		this.estado = estado;
 	}
 	public String getNombre() {
@@ -35,18 +45,13 @@ public class Usuario {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getApellidos() {
-		return apellidos;
+	public String getApellido() {
+		return apellido;
 	}
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
-	public int getIdusuario() {
-		return idusuario;
-	}
-	public void setIdusuario(int idusuario) {
-		this.idusuario = idusuario;
-	}
+	
 	public String getUsername() {
 		return username;
 	}
@@ -65,7 +70,16 @@ public class Usuario {
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
-	public String getDireccion() {
+
+        public String getTelefono() {
+        return telefono;
+        }
+
+        public void setTelefono(String telefono) {
+        this.telefono = telefono;
+        }
+              
+        public String getDireccion() {
 		return direccion;
 	}
 	public void setDireccion(String direccion) {

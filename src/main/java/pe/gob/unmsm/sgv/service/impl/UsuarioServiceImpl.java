@@ -13,19 +13,24 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 import pe.gob.unmsm.sgv.models.Usuario;
+import pe.gob.unmsm.sgv.repository.impl.TarjetaRepositoryImpl;
 import pe.gob.unmsm.sgv.repository.impl.UsuarioRepositoryImpl;
 import pe.gob.unmsm.sgv.service.UsuarioService;
+
 @Service
 public class UsuarioServiceImpl implements UsuarioService,UserDetailsService {
 	
 	@Autowired
-	UsuarioRepositoryImpl ur;
+	private UsuarioRepositoryImpl ur;
+        
+        
+        @Autowired
+	private TarjetaRepositoryImpl tj;
 
-	private Logger logger =LoggerFactory.getLogger(UsuarioService.class);
+	private Logger logger =LoggerFactory.getLogger(UsuarioServiceImpl.class);
 	
 	
 	@Override
@@ -33,11 +38,11 @@ public class UsuarioServiceImpl implements UsuarioService,UserDetailsService {
 	   
 	    Usuario usuario=ur.datosUsuario(username);
 	    if(usuario == null){
-	        logger.error("Error en el login: no existe el usuario '"+usuario+"' en el sistema");
+	        logger.error("Error en el login: no existe el usuario {} en el sistema",usuario);
 	        throw new UsernameNotFoundException("Error ene el login: no existe el usuario '"+usuario+"' en el sistema");
 	    }
 	    
-	    List<GrantedAuthority> authorities = usuario.getRoles().stream().map(rol -> new SimpleGrantedAuthority(rol.getNombre())).peek(authority -> logger.info("Rol: "+authority.getAuthority())).collect(Collectors.toList());
+	    List<GrantedAuthority> authorities = usuario.getRoles().stream().map(rol -> new SimpleGrantedAuthority(rol.getNombre())).peek(authority -> logger.info("Rol {} ",authority.getAuthority())).collect(Collectors.toList());
 	    return new User(usuario.getUsername(), usuario.getPassword(), true, true, true, true, authorities);
 	}
 
@@ -46,5 +51,32 @@ public class UsuarioServiceImpl implements UsuarioService,UserDetailsService {
 		
 		return ur.datosUsuario(username);
 	}
+
+        @Override
+        public List<Usuario> obtenerUsuarioPorId(String username) {
+                return ur.obtenerUsuarioPorId(username);
+        }
+
+        
+        @Override
+        public void agregarUsuario(Usuario usuario) {
+                ur.agregarUsuario(usuario,tj.agregarTarjeta());
+            
+        }   
+
+        @Override
+        public List<Usuario> obtenerUsuarios() {
+                return ur.obtenerUsuarios();
+        }
+
+        @Override
+        public void actualizarUsuario(Usuario usuario) {
+                ur.actualizarUsuario(usuario);
+        }
+
+        @Override
+        public void eliminarUsuario(String username) {
+                ur.eliminarUsuario(username);
+        }
 
 }
